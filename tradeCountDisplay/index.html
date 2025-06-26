@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade Leaderboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #007BFF;
+            color: white;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        #pagination {
+            margin-top: 10px;
+        }
+        #pagination button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: 1px solid #007BFF;
+            border-radius: 5px;
+            background: white;
+            cursor: pointer;
+        }
+        #pagination button:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>*WIP* Cardsmith's Currency Subreddit's Trade Leaderboard</h1>
+        <a href="https://www.reddit.com/r/Currencytradingcards/">Join the Conversation on Reddit!</a>
+        <p class="small-text">Created with ❤️ by <a href="https://www.reddit.com/user/Bitbindergaming" target="_blank">u/Bitbindergaming</a></p>
+        <p class="small-text">Tips always appreciated: <strong>1LYzb4XCjoBJwc6iw9aTVfBNHizEd8aatD</strong></p>
+        <input type="text" id="search" placeholder="Search by username...">
+        <div id="pagination">
+            <button id="prev">Previous</button>
+            <span id="page"></span>
+            <button id="next">Next</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>Trades</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard"></tbody>
+        </table>
+    </div>
+
+    <script>
+        const PAGE_SIZE = 20;
+        let allUsers = [];
+        let filteredUsers = [];
+        let currentPage = 1;
+
+        async function init() {
+            const response = await fetch('trade_flair.json');
+            const data = await response.json();
+            allUsers = Object.entries(data)
+                .map(([user, trades]) => ({ user, trades }))
+                .sort((a, b) => b.trades - a.trades);
+            filteredUsers = allUsers;
+            renderTable();
+        }
+
+        function renderTable() {
+            const leaderboard = document.getElementById("leaderboard");
+            leaderboard.innerHTML = "";
+            const start = (currentPage - 1) * PAGE_SIZE;
+            const end = start + PAGE_SIZE;
+            const pageUsers = filteredUsers.slice(start, end);
+            const fragment = document.createDocumentFragment();
+            pageUsers.forEach((user, index) => {
+                const rank = start + index + 1;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${rank}</td>
+                    <td><a href="https://www.reddit.com/user/${user.user}" target="_blank">${user.user}</a></td>
+                    <td>${user.trades}</td>
+                `;
+                fragment.appendChild(tr);
+            });
+            leaderboard.appendChild(fragment);
+
+            const totalPages = Math.ceil(filteredUsers.length / PAGE_SIZE);
+            document.getElementById('page').textContent = `Page ${currentPage} of ${totalPages}`;
+            document.getElementById('prev').disabled = currentPage === 1;
+            document.getElementById('next').disabled = currentPage === totalPages;
+        }
+
+        // Improved debounce to preserve `this`
+        function debounce(fn, delay = 300) {
+            let timeout;
+            return function(...args) {
+                const context = this;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => fn.apply(context, args), delay);
+            };
+        }
+
+        document.getElementById('search').addEventListener('input', debounce(function(event) {
+            const query = this.value.toLowerCase();
+            filteredUsers = allUsers.filter(u => u.user.toLowerCase().includes(query));
+            currentPage = 1;
+            renderTable();
+        }));
+
+        document.getElementById('prev').addEventListener('click', () => {
+            if (currentPage > 1) { currentPage--; renderTable(); }
+        });
+        document.getElementById('next').addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredUsers.length / PAGE_SIZE);
+            if (currentPage < totalPages) { currentPage++; renderTable(); }
+        });
+
+        init();
+    </script>
+</body>
+</html>
