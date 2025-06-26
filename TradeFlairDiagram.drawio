@@ -1,0 +1,165 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0" version="27.1.6">
+  <diagram name="Page-1" id="OGWDz_Ecuq2L6BD_11pf">
+    <mxGraphModel dx="846" dy="777" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-17" value="API" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="160" y="290" width="440" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-33" value="AWS Account" style="rounded=1;arcSize=10;dashed=1;dashPattern=8 4;strokeWidth=2;fillColor=none;strokeColor=#FFB570;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="40" y="460" width="129" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-27" value="" style="rounded=1;arcSize=10;dashed=1;strokeColor=#ff0000;fillColor=none;gradientColor=none;dashPattern=8 4;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="740" height="350" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-1" value="Reddit Trade Thread" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="130" width="140" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-2" value="Trade 1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="dGLHfl3oZEAff6ZSvKTL-1">
+          <mxGeometry y="30" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-3" value="&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Confirmed 1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="dGLHfl3oZEAff6ZSvKTL-1">
+          <mxGeometry y="60" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-4" value="&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Added 1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="dGLHfl3oZEAff6ZSvKTL-1">
+          <mxGeometry y="90" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-6" value="Reddit Trade Thread" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="130" width="140" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-7" value="Trade 1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="dGLHfl3oZEAff6ZSvKTL-6">
+          <mxGeometry y="30" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-8" value="&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Confirmed 1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="dGLHfl3oZEAff6ZSvKTL-6">
+          <mxGeometry y="60" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-9" value="&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Added 1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="dGLHfl3oZEAff6ZSvKTL-6">
+          <mxGeometry y="90" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-12" value="Reddit Trade Thread" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="130" width="140" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-13" value="Trade 1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="dGLHfl3oZEAff6ZSvKTL-12">
+          <mxGeometry y="30" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-14" value="&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Confirmed 1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="dGLHfl3oZEAff6ZSvKTL-12">
+          <mxGeometry y="60" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-15" value="&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Added 1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="dGLHfl3oZEAff6ZSvKTL-12">
+          <mxGeometry y="90" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="dGLHfl3oZEAff6ZSvKTL-17" target="dGLHfl3oZEAff6ZSvKTL-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="dGLHfl3oZEAff6ZSvKTL-17" target="dGLHfl3oZEAff6ZSvKTL-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-18" value="u/TradeFlair" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.waf_bot;" vertex="1" parent="1">
+          <mxGeometry x="410" y="315.5" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dGLHfl3oZEAff6ZSvKTL-19" target="dGLHfl3oZEAff6ZSvKTL-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-19" value="CCAutoFlair&lt;br&gt;Script Integration" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.long_term_security_credential;" vertex="1" parent="1">
+          <mxGeometry x="270" y="320" width="78" height="69" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-21" value="AWS Secrets Manager" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#ffffff;fillColor=#232F3E;dashed=0;verticalLabelPosition=middle;verticalAlign=bottom;align=center;html=1;whiteSpace=wrap;fontSize=10;fontStyle=1;spacing=3;shape=mxgraph.aws4.productIcon;prIcon=mxgraph.aws4.secrets_manager;" vertex="1" parent="1">
+          <mxGeometry x="62" y="495" width="86" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="dGLHfl3oZEAff6ZSvKTL-24" target="dGLHfl3oZEAff6ZSvKTL-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-32" value="Stored In AWS Secrets Manager" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="dGLHfl3oZEAff6ZSvKTL-31">
+          <mxGeometry y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-24" value="" style="rounded=1;arcSize=10;dashed=1;strokeColor=#ff0000;fillColor=none;gradientColor=none;dashPattern=8 4;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="240" y="310" width="280" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-25" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.weblogos.reddit;fillColor=#F3F8FC;gradientColor=#B4D2F0" vertex="1" parent="1">
+          <mxGeometry x="60" y="130" width="88" height="73.60000000000001" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-30" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="dGLHfl3oZEAff6ZSvKTL-28" target="dGLHfl3oZEAff6ZSvKTL-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-28" value="Mods Assign&amp;nbsp;&lt;br&gt;Flair Permission to&amp;nbsp;&lt;br&gt;u/TradeFlair" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/ai_machine_learning/Content_Moderators.svg;" vertex="1" parent="1">
+          <mxGeometry x="650" y="159" width="68" height="62.8" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1.015;entryY=0.414;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="dGLHfl3oZEAff6ZSvKTL-24" target="dGLHfl3oZEAff6ZSvKTL-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.967;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="dGLHfl3oZEAff6ZSvKTL-17" target="dGLHfl3oZEAff6ZSvKTL-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-37" value="Shell Environment" style="rounded=1;arcSize=10;dashed=1;dashPattern=8 4;strokeWidth=2;fillColor=none;strokeColor=#3333FF;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="180" y="463" width="600" height="277" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-51" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=5;" edge="1" parent="1" source="dGLHfl3oZEAff6ZSvKTL-39" target="dGLHfl3oZEAff6ZSvKTL-50">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-39" value="Database&lt;br&gt;Stores and Queries&lt;br&gt;Messages/Users/Flair" style="image;html=1;image=img/lib/clip_art/computers/Database_128x128.png" vertex="1" parent="1">
+          <mxGeometry x="470" y="484.5" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;strokeWidth=5;" edge="1" parent="1" source="dGLHfl3oZEAff6ZSvKTL-40" target="dGLHfl3oZEAff6ZSvKTL-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-40" value="PowerShell&lt;br&gt;Message Import Script" style="sketch=0;aspect=fixed;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#00188D;shape=mxgraph.azure.powershell_file" vertex="1" parent="1">
+          <mxGeometry x="378" y="499.5" width="47" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-45" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=5;" edge="1" parent="1" source="dGLHfl3oZEAff6ZSvKTL-41" target="dGLHfl3oZEAff6ZSvKTL-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-41" value="messages.json" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.json_script;" vertex="1" parent="1">
+          <mxGeometry x="300" y="497" width="40.19" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;strokeWidth=5;" edge="1" parent="1" source="dGLHfl3oZEAff6ZSvKTL-42" target="dGLHfl3oZEAff6ZSvKTL-41">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-42" value="Python Message&lt;br&gt;Sync Script" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.android;fillColor=#FFD44F;gradientColor=none;" vertex="1" parent="1">
+          <mxGeometry x="196.5" y="483" width="73.5" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;fillColor=#ffcd28;gradientColor=#ffa500;strokeColor=#000000;strokeWidth=4;" edge="1" parent="1" source="dGLHfl3oZEAff6ZSvKTL-24" target="dGLHfl3oZEAff6ZSvKTL-42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-53" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=5;" edge="1" parent="1" source="dGLHfl3oZEAff6ZSvKTL-50" target="dGLHfl3oZEAff6ZSvKTL-52">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-50" value="PowerShell&lt;br&gt;Calculate trade Flair" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Powershell.svg;" vertex="1" parent="1">
+          <mxGeometry x="585" y="498" width="65" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;strokeWidth=4;" edge="1" parent="1" source="dGLHfl3oZEAff6ZSvKTL-52" target="dGLHfl3oZEAff6ZSvKTL-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-52" value="Python&lt;br&gt;Flair Update/Comment&lt;br&gt;Script" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.android;fillColor=#FFD44F;gradientColor=none;" vertex="1" parent="1">
+          <mxGeometry x="690" y="482.5" width="73.5" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-57" value="S3 Website Bucket" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#DF8C42;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;shape=mxgraph.veeam2.aws_s3;" vertex="1" parent="1">
+          <mxGeometry x="69" y="620" width="76" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-58" value="" style="points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;fillColor=#FF6A00;strokeColor=none;shape=mxgraph.alibaba_cloud.dns_domain_name_system;" vertex="1" parent="1">
+          <mxGeometry x="76.6" y="730" width="55.800000000000004" height="54.900000000000006" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=4;" edge="1" parent="1" source="dGLHfl3oZEAff6ZSvKTL-59" target="dGLHfl3oZEAff6ZSvKTL-57">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-59" value="PowerShel Script&lt;br&gt;Generate Leaderboard" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Powershell.svg;" vertex="1" parent="1">
+          <mxGeometry x="220" y="624" width="65" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-61" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.545;entryY=0.036;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="dGLHfl3oZEAff6ZSvKTL-57" target="dGLHfl3oZEAff6ZSvKTL-58">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-62" value="&lt;div&gt;https://CCAutoFlair.Bitbinder.Net&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="14" y="784.9" width="186" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-66" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.github_code;pointerEvents=1;" vertex="1" parent="1">
+          <mxGeometry x="205" y="765" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dGLHfl3oZEAff6ZSvKTL-67" value="Github" style="rounded=1;arcSize=10;dashed=1;dashPattern=8 4;strokeWidth=2;fillColor=none;strokeColor=#66FF66;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="180" y="746.4" width="340" height="83.6" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
