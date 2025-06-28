@@ -1,4 +1,4 @@
-!(Visit the Leaderboard!)[https://tradeflair.bitbinder.net]
+(Visit the Leaderboard!)[https://tradeflair.bitbinder.net]
 
 ![Diagram](TradeFlairDiagram.png)
 
