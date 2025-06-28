@@ -5,3 +5,4 @@ Open-mySqlConnection -ConnectionName redditbot -Server $ENV:MYSQL_SERVER -Port $
 $jsonTradeFlair = invoke-sqlquery -query "SELECT JSON_OBJECTAGG(users.redditId, flair.trade_count) AS TradeFlair FROM flair JOIN users ON flair.userid = users.id" -ConnectionName redditbot
 $jsonTradeFlair.'TradeFlair' | set-content -Path ./tradeCountDisplay/trade_flair.json
 aws s3 cp ./tradeCountDisplay/trade_flair.json s3://ccautoflair.bitbinder.net/trade_flair.json
+aws s3 cp ./tradeCountDisplay/index.html s3://ccautoflair.bitbinder.net/index.html
