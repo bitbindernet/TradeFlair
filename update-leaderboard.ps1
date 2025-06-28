@@ -1,4 +1,4 @@
-. ./awshelper.ps1 -prod
+. ./awsHelper.ps1 -prod
 $credential = $(New-Object -TypeName 'System.Management.Automation.PsCredential' -ArgumentList $ENV:MYSQL_USER,$ss)
 Open-mySqlConnection -ConnectionName redditbot -Server $ENV:MYSQL_SERVER -Port $ENV:MYSQL_SERVER_PORT -Database redditbot -credential $credential
 
