@@ -16,7 +16,7 @@ $threads | %{
      #$ENV:RECOUNT_TRADES     =
      $ENV:TRADE_THREAD       = $_.url
 
-     python3.exe .\Get-MessagesSince.py --out messages.json --since $epoch3Days --more-limit 1000
+     python3 .\Get-MessagesSince.py --out messages.json --since $epoch3Days --more-limit 1000
      . .\sync-messages.ps1
 
 }

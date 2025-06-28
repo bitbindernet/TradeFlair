@@ -12,7 +12,7 @@ $threads | %{
      #$ENV:RECOUNT_TRADES     =
      $ENV:TRADE_THREAD       = $_.url
 
-     python3.exe .\Get-AllMessagesSafe.py
+     python3 .\Get-AllMessagesSafe.py
      . .\sync-messages.ps1
 
 }
