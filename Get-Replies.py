@@ -11,7 +11,7 @@ reddit = praw.Reddit(
     client_secret=os.getenv("REDDIT_SCRIPT_SECRET"),
     username=os.getenv("REDDITUSER"),
     password=os.getenv("REDDITUSERPASSWORD"),
-    user_agent="reddit-fetch-replies-to-messageids"
+    user_agent="TradeFlair-v0.0.1"
 )
 
 # ───── MySQL DB connection ─────
