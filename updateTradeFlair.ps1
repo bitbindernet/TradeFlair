@@ -46,7 +46,7 @@ $messagesToProcess | where {$_.body -match "confirm" -and $_.redditParentId}  | 
             #2. Update Userflairs
             $newParentUserFlair = Invoke-SqlQuery -Query "select redditId,trade_count,emojis from flair join users on flair.userId = users.id where userId = @userId" -Parameters @{userId=$parentMessage.userId} -ConnectionName redditbot;
             $newconfirmingUserFlair = Invoke-SqlQuery -Query "select redditId,trade_count,emojis from flair join users on flair.userId = users.id where userId = @userId" -Parameters @{userId=$ConfirmingMessage.userId} -ConnectionName redditbot;
-            python3 ./Set-UserFlair.py $threads[$parentMessage.tradeThreadId-1].subreddit $newParentUserFlair.redditId "Trades: $($newParentUserFlair.trade_count) :$($($d.emojis | convertfrom-json)-join "::"):"
+            python3 ./Set-UserFlair.py $($threads |?{$_.id -eq $parentMessage.tradeThreadId}).subreddit $newParentUserFlair.redditId "Trades: $($newParentUserFlair.trade_count) :$($($d.emojis | convertfrom-json)-join "::"):"
             #2. post added to confirming message
             python3 ./New-RedditMessage.py $confirmingMessage.redditId "Added!"
         }
