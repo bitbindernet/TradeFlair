@@ -4,6 +4,7 @@ import json
 import argparse
 import pymysql
 import praw
+import sys
 
 # ───── Reddit client from env vars ─────
 reddit = praw.Reddit(
@@ -65,7 +66,7 @@ def get_replies_to_message_ids(message_ids):
     return replies
 
 
-def write_to_json(replies, filename="messages.json"):
+def write_to_json(replies, filename="messages.json", stream=None):
     output = [{
         "id": r.id,
         "parent_id": r.parent_id.replace("t1_", ""),
@@ -74,9 +75,13 @@ def write_to_json(replies, filename="messages.json"):
         "created_utc": r.created_utc
     } for r in replies]
 
-    with open(filename, "w", encoding="utf-8") as f:
-        json.dump(output, f, indent=2)
-    print(f"✅ Wrote replies to {filename}")
+    if stream:
+        json.dump(output, stream, indent=2)
+        stream.write("\n")
+    else:
+        with open(filename, "w", encoding="utf-8") as f:
+            json.dump(output, f, indent=2)
+        print(f"✅ Wrote replies to {filename}")
 
 def write_to_db(replies, trade_thread_id=2):
     cursor = get_mysql_cursor()
@@ -107,10 +112,14 @@ if __name__ == "__main__":
 
     replies = get_replies_to_message_ids(args.message_ids)
 
-    if args.stdout:
-        write_to_stdout(replies)
     if args.json:
-        write_to_json(replies)
+        # If user passed both --json and --stdout, emit JSON to stdout (pipe-friendly)
+        if args.stdout:
+            write_to_json(replies, stream=sys.stdout)
+        else:
+            write_to_json(replies)
+    elif args.stdout:
+        write_to_stdout(replies)
     if args.db:
         write_to_db(replies, args.thread_id)
 
