@@ -26,10 +26,11 @@ reddit = praw.Reddit(
 
 subreddit = reddit.subreddit(subreddit_name)
 
-flair = subreddit.flair.redditor(username)
+# Fetch flair for the specific user (generator, expect one result)
+flair_info = next(subreddit.flair(redditor=username), None)
 
-if flair and flair['flair_text']:
-    result = {username: flair['flair_text']}
+if flair_info and flair_info['flair_text']:
+    result = {username: flair_info['flair_text']}
 else:
     result = {username: None}
 
