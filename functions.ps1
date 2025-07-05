@@ -47,3 +47,22 @@ function Parse-FlairText {
 
     return $result
 }
+
+function Out-Confirmations
+{
+    param($confirmations);
+    $confirmations | ForEach-Object {
+    [PSCustomObject]@{
+        ParentUserName                    = $_.ParentUserName
+        ParentUserId                      = $_.ParentUserId
+        ParentCurrentRedditTradeFlair     = $_.ParentCurrentRedditTradeFlair
+        ParentLocalFlair                  = $_.ParentLocalFlair
+        ParentTradeBody                   = $_.ParentTradeBody
+        ConfirmingUserName                = $_.ConfirmingUserName
+        ConfirmingUserId                  = $_.ConfirmingUserId
+        ConfirmingCurrentRedditTradeFlair = $_.ConfirmingCurrentRedditTradeFlair
+        ConfirmingLocalFlair              = $_.ConfirmingLocalFlair
+        ConfirmingMessageBody             = $_.ConfirmingMessageBody
+    }
+} | Out-GridView -Title "Trade Confirmations" -OutputMode Multiple
+}
