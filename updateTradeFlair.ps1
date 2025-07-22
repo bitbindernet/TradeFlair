@@ -7,6 +7,7 @@ $ss = ConvertTo-SecureString $ENV:MYSQL_PASSWORD -AsPlainText -Force
 Open-mySqlConnection -ConnectionName redditbot -Server $ENV:MYSQL_SERVER -Port $ENV:MYSQL_SERVER_PORT -Database redditbot -credential $(New-Object -TypeName 'System.Management.Automation.PsCredential' -ArgumentList $ENV:MYSQL_USER,$ss)
 
 $threads = Invoke-SqlQuery -Query "select * from tradethreads where active = 1" -ConnectionName redditbot
+#$threads = Invoke-SqlQuery -Query "select * from tradethreads where id = 4" -ConnectionName redditbot
 $mostRecentFlairUpdate = invoke-sqlquery -query "Select updated from flair order by updated desc limit 1" -ConnectionName redditbot
 $messagesSinceMostRecentFlairUpdate = invoke-sqlquery -query "select * from messages where tradeThreadId in (select id from tradethreads where active = 1) and created > @mostRecentFlairUpdate" -Parameters @{mostrecentFlairUpdate=$mostRecentFlairUpdate.updated} -ConnectionName redditbot
 
@@ -21,7 +22,7 @@ $messagesSinceMostRecentFlairUpdate | where {$_.body -match "added" -and $_.redd
     $parentOfParentMessage = $messagesToProcess | ?{$_.redditId -eq $parentOfParentId}
     write-warning "removing added message Chain`r`n $($currentMessageId) $($parentMessageId) $($parentOfParentId)"
     #$messagesToProcess = $messagesToProcess | where-object {$_ -ne $currentMessage }
-    #$messagesToProcess = $messagesToProcess | where-object {$_.redditId -ne $currentMessage.redditParentId}
+    #$messagesToProcess = $messagesToProcess | where-object {$_.redditId -ne $currentMessage.redditParentId} 
     #$messagesToProcess = $messagesToProcess | where-object {$_.redditId -ne $($_.redditId -eq $currentMessage.redditParentId; $_.redditParentId)}
     $messagesToProcess = $messagesToProcess | where-object {$_.redditId -ne $currentMessageId}
     $messagesToProcess = $messagesToProcess | where-object {$_.redditId -ne $ParentMessageId} 
@@ -122,3 +123,4 @@ $messagesToProcess | where {$_.body -match "confirm" -and $_.redditParentId}  | 
         }
     }
 }
+
