@@ -1,4 +1,3 @@
-
 WITH
 confirmations as (
 SELECT messages.`redditId` as MessageId,`redditParentId` as ParentMessageId,LOWER(body) LIKE '%confirmed%',body,created, users.`redditId` as Username FROM messages
@@ -15,23 +14,10 @@ FROM confirmations c
 JOIN top_level_comments t on c.ParentMessageId = t.MessageId
 where t.Username <> c.Username AND t.body LIKE CONCAT('%u/', c.Username, '%')
 )
-#select 'BitbinderGaming' as User, partners
-select commentingUser, taggedUser from trade_log where 
-commentingUser = 'BitbinderGaming' or taggedUser = 'BitbinderGaming';
 
-#select * from trade_log where 
-#commentingUser = 'BitbinderGaming' or taggedUser = 'BitbinderGaming'
-
-#select Username, topLevelMessage, confirmingMessage, body, confirmation
-#FROM (
-#    SELECT commentingUser as Username, topLevelMessage, '' as confirmingMessage, body, '' as confirmation from trade_log
-#    UNION ALL
-#    SELECT taggedUser as Username, topLevelMessage, confirmingMessage, '' as body, confirmation from trade_log
-#) as flair
-#where Username = 'BitbinderGaming'
-
-/*
-CREATE TABLE materialized_trade_log AS
-SELECT * FROM trade_log;
-*/
-
+select m2.created, commentingUser, taggedUser, m2.body as trade, m1.body as confirmation, CONCAT((select url from tradethreads where id = m2.tradeThreadId),m2.redditId,"/") as link from trade_log 
+join messages m1 on trade_log.confirmingMessage = m1.redditId
+join messages m2 on trade_log.topLevelMessage = m2.redditId
+join tradethreads on m2.tradeThreadId = tradethreads.id
+where 
+commentingUser = 'bitbindergaming' or taggedUser = 'bitbindergaming';
