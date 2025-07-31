@@ -20,4 +20,4 @@ join messages m1 on trade_log.confirmingMessage = m1.redditId
 join messages m2 on trade_log.topLevelMessage = m2.redditId
 join tradethreads on m2.tradeThreadId = tradethreads.id
 where 
-commentingUser = 'bitbindergaming' or taggedUser = 'bitbindergaming';
+commentingUser = 'bitbindergaming' or taggedUser = 'bitbindergamingr';
