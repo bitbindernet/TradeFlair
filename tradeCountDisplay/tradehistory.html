@@ -149,7 +149,7 @@
                 const response = await fetch(`https://api.tradeflair.bitbinder.net/api/tradehistory/${encodeURIComponent(username)}`);
                 if (!response.ok) throw new Error('Failed to fetch trade history');
                 const data = await response.json();
-                allTrades = data;
+                allTrades = data.sort((a, b) => new Date(b.created) - new Date(a.created));
                 filteredTrades = allTrades;
                 renderTable();
             } catch (e) {
