@@ -7,5 +7,6 @@
 #aws s3 cp ./tradeCountDisplay/trade_flair.json s3://ccautoflair.bitbinder.net/trade_flair.json
 aws s3 cp ./tradeCountDisplay/index.html s3://ccautoflair.bitbinder.net/index.html
 aws s3 cp ./tradeCountDisplay/tradehistory.html s3://ccautoflair.bitbinder.net/tradehistory.html
+aws cloudfront create-invalidation --distribution-id E1DP3SBWSYIWWZ --paths "/"
 aws cloudfront create-invalidation --distribution-id E1DP3SBWSYIWWZ --paths "/index.html"
 aws cloudfront create-invalidation --distribution-id E1DP3SBWSYIWWZ --paths "/tradehistory.html"
