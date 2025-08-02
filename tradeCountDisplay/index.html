@@ -62,6 +62,54 @@
             opacity: 0.5;
             cursor: default;
         }
+/*       .onyx        { background: #111; color: #fff; }
+        .sapphire    { background: #1e3a5c; color: #fff; }
+        .gold        { background: #ffd700; color: #222; }
+        .aquamarine  { background: #7fffd4; color: #222; }
+        .ruby        { background: #9b111e; color: #fff; }
+        .opal        { background: #f8f8ff; color: #222; }
+        .jade        { background: #00a86b; color: #fff; }
+        .amethyst    { background: #9966cc; color: #fff; }
+        .silver      { background: #c0c0c0; color: #222; }
+        .garnet      { background: #8b0000; color: #fff; }
+        .emerald     { background: #006400; color: #fff; }
+        .beryl       { background: #ffb347; color: #222; } */
+        /* Add a colored border to the left of the row */
+
+        .onyx        { border-left: 8px solid #111; }
+        .sapphire    { border-left: 8px solid #1e3a5c; }
+        .gold        { border-left: 8px solid #ffd700; }
+        .aquamarine  { border-left: 8px solid #7fffd4; }
+        .ruby        { border-left: 8px solid #9b111e; }
+        .opal        { border-left: 8px solid #f8f8ff; }
+        .jade        { border-left: 8px solid #00a86b; }
+        .amethyst    { border-left: 8px solid #9966cc; }
+        .silver      { border-left: 8px solid #c0c0c0; }
+        .garnet      { border-left: 8px solid #8b0000; }
+        .emerald     { border-left: 8px solid #006400; }
+        .beryl       { border-left: 8px solid #ffb347; }
+
+        .onyx        { box-shadow: 0 0 10px 2px #111; }
+        .sapphire    { box-shadow: 0 0 10px 2px #1e3a5c; }
+        .gold        { box-shadow: 0 0 10px 2px #ffd700; }
+        .aquamarine  { box-shadow: 0 0 10px 2px #7fffd4; }
+        .ruby        { box-shadow: 0 0 10px 2px #9b111e; }
+        .opal        { box-shadow: 0 0 10px 2px #f8f8ff; }
+        .jade        { box-shadow: 0 0 10px 2px #00a86b; }
+        .amethyst    { box-shadow: 0 0 10px 2px #9966cc; }
+        .silver      { box-shadow: 0 0 10px 2px #c0c0c0; }
+        .garnet      { box-shadow: 0 0 10px 2px #8b0000; }
+        .emerald     { box-shadow: 0 0 10px 2px #006400; }
+        .beryl       { box-shadow: 0 0 10px 2px #ffb347; } 
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 12px;
+            margin-top: 20px;
+        }
+        tr {
+            background-clip: padding-box;
+        }
     </style>
 </head>
 <body>
@@ -115,9 +163,27 @@
             const end = start + PAGE_SIZE;
             const pageUsers = filteredUsers.slice(start, end);
             const fragment = document.createDocumentFragment();
+            const rankColors = [
+                'onyx',      // 1
+                'sapphire',  // 2
+                'gold',      // 3
+                'aquamarine',// 4
+                'ruby',      // 5
+                'opal',      // 6
+                'jade',      // 7
+                'amethyst',  // 8
+                'silver',    // 9
+                'garnet',    // 10
+                'emerald',   // 11
+                'beryl'      // 12
+            ];
+
             pageUsers.forEach((user, index) => {
                 const rank = start + index + 1;
                 const tr = document.createElement('tr');
+                if (rank <= 12) {
+                    tr.className = rankColors[rank - 1];
+                }
                 tr.innerHTML = `
                     <td>${rank}</td>
                     <td><a href="tradehistory.html?user=${encodeURIComponent(user.user)}" target="_blank">${user.user}</a></td>
