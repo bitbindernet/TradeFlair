@@ -12,6 +12,7 @@ Start-PodeServer {
 
     $dataAccessObject = @{
         "allUsers" = "select redditId, trade_count from users join flair on users.id = flair.userid";
+        "leaderboard" = "SELECT users.redditId, flair.trade_count FROM users JOIN flair ON users.id = flair.userid";
         "tradesByUsername" = "select updated,trade_count,emojis,redditId from flair join users on flair.userid = users.id where users.redditId = @redditUsername";
         "tradePartners" = @"
             WITH
@@ -74,6 +75,7 @@ Start-PodeServer {
     }
 
     $tradesByUsernameQuery = $dataAccessObject.tradesByUsername
+    $leaderboardQuery = $dataAccessObject.leaderboard
     $tradePartnersQuery = $dataAccessObject.tradePartners
     $allusersQuery = $dataAccessObject.allUsers
     $tradehistoryQuery = $dataAccessObject.tradeHistory
@@ -109,6 +111,20 @@ Start-PodeServer {
         $dt = Invoke-SqlQuery -Query $using:allusersquery -ConnectionName $using:connectionName
         $jsresponse = $dt | Select-Object * -ExcludeProperty ItemArray, Table, RowError, RowState, HasErrors | ConvertTo-Json
         write-podejsonresponse -value $jsresponse
+        close-sqlconnection -ConnectionName $using:connectionName
+    }
+
+    Add-PodeRoute -Method Get -Path '/api/leaderboard' -ScriptBlock {
+        Open-mySqlConnection -ConnectionName $using:connectionName -Server $ENV:MYSQL_SERVER -Port $ENV:MYSQL_SERVER_PORT -Database redditbot -credential $(New-Object -TypeName 'System.Management.Automation.PsCredential' -ArgumentList $ENV:MYSQL_USER,$using:ss)
+        Set-SqlConnection -ConnectionName $using:connectionName
+
+        $rows = Invoke-SqlQuery -Query $using:leaderboardQuery -ConnectionName $using:connectionName
+        $dict = @{}
+        foreach ($row in $rows) {
+            $dict[$row.redditId] = [int]$row.trade_count
+        }
+        Write-PodeJsonResponse -Value $dict
+        
         close-sqlconnection -ConnectionName $using:connectionName
     }
 
