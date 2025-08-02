@@ -5,6 +5,7 @@ import-module Pode
 Start-PodeServer {
     . ./awsHelper.ps1
 
+    Set-PodeSecurityAccessControl -Origin '*'
 
     $ss = ConvertTo-SecureString $ENV:MYSQL_PASSWORD -AsPlainText -Force
     $connectionName = "api"
@@ -77,7 +78,7 @@ Start-PodeServer {
     $allusersQuery = $dataAccessObject.allUsers
     $tradehistoryQuery = $dataAccessObject.tradeHistory
 
-    Add-PodeEndpoint -Address localhost -Port 9054 -name api.tradeflair.bitbinder.net -Protocol Http
+    Add-PodeEndpoint -Address * -Port 9054 -name api.tradeflair.bitbinder.net -Protocol Http
     New-PodeLoggingMethod -Terminal | Enable-PodeErrorLogging
 
     Add-PodeRoute -Method Get -Path '/' -ScriptBlock {
