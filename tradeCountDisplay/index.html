@@ -116,8 +116,8 @@
     <div class="container">
         <h1>Reddit TradeFlair Leaderboard</h1>
         <p>Currently Supporting: 
-            <a href="https://www.reddit.com/r/Currencytradingcards/">r/Currencytradingcards</a>
-            and <a href="https://www.reddit.com/r/Spacetradingcards/">r/SpaceTradingcards</a>
+            <a href="https://www.reddit.com/r/Currencytradingcards/" target="_blank">r/Currencytradingcards</a>
+            and <a href="https://www.reddit.com/r/Spacetradingcards/" target="_blank">r/SpaceTradingcards</a>
         </p>
 
         <input type="text" id="search" placeholder="Search by username...">
@@ -137,7 +137,7 @@
             <tbody id="leaderboard"></tbody>
         </table>
         <p class="small-text">Created with ❤️ by <a href="https://www.reddit.com/user/Bitbindergaming" target="_blank">u/Bitbindergaming</a></p>
-        <p class="small-text">Tips always appreciated: <strong>1LYzb4XCjoBJwc6iw9aTVfBNHizEd8aatD</strong></p>
+        <p class="small-text">Tips always appreciated: <strong>BTC: 1LYzb4XCjoBJwc6iw9aTVfBNHizEd8aatD</strong></p>
     </div>
 
     <script>
@@ -186,7 +186,7 @@
                 }
                 tr.innerHTML = `
                     <td>${rank}</td>
-                    <td><a href="tradehistory.html?user=${encodeURIComponent(user.user)}" target="_blank">${user.user}</a></td>
+                    <td><a href="tradehistory.html?user=${encodeURIComponent(user.user)}" target="_self">${user.user}</a></td>
                     <td>${user.trades}</td>
                 `;
                 fragment.appendChild(tr);
