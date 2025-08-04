@@ -10,7 +10,7 @@ $threads = Invoke-SqlQuery -Query "select * from tradethreads where active = 1" 
 $messages = invoke-sqlquery -query "select * from messages where tradeThreadId in (select id from tradethreads where active = 1) and created >= CURDATE() - INTERVAL 5 DAY " -ConnectionName redditbot
 
 $messagesToProcess = $messages.Clone()
-$filterMessages = $messages | Where-Object {$_.body -match "confirm" -and $_.redditParentId} 
+$filterMessages = $messages | Where-Object {$($_.body -match "confirm" -or $_.body -match "received")-and $_.redditParentId} 
 foreach ($currentConfirmingMessage in $filterMessages){
     #$currentConfirmingMessage = $_;
     $currentConfirmingMessageId = $currentConfirmingMessage.redditId;
