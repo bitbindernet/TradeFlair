@@ -52,7 +52,8 @@
             const data = await response.json();
             allUsers = Object.entries(data)
                 .map(([user, trades]) => ({ user, trades }))
-                .sort((a, b) => b.trades - a.trades);
+                .sort((a, b) => b.trades - a.trades)
+                .map((user, idx) => ({ ...user, rank: idx + 1 })); // Assign rank here
             filteredUsers = allUsers;
             renderTable();
         }
@@ -65,28 +66,17 @@
             const pageUsers = filteredUsers.slice(start, end);
             const fragment = document.createDocumentFragment();
             const rankColors = [
-                'onyx',      // 1
-                'sapphire',  // 2
-                'gold',      // 3
-                'aquamarine',// 4
-                'ruby',      // 5
-                /*'opal',      // 6*/
-                'jade',      // 7
-                'amethyst',  // 8
-                'silver',    // 9
-                'garnet',    // 10
-                'emerald',   // 11
-                'beryl'      // 12
+                'onyx', 'sapphire', 'gold', 'aquamarine', 'ruby',
+                /*'opal',*/ 'jade', 'amethyst', 'silver', 'garnet', 'emerald', 'beryl'
             ];
 
-            pageUsers.forEach((user, index) => {
-                const rank = start + index + 1;
+            pageUsers.forEach((user) => {
                 const tr = document.createElement('tr');
-                if (rank <= 12) {
-                    tr.className = rankColors[rank - 1];
+                if (user.rank <= 12) {
+                    tr.className = rankColors[user.rank - 1];
                 }
                 tr.innerHTML = `
-                    <td>${rank}</td>
+                    <td>${user.rank}</td>
                     <td><a href="tradehistory.html?user=${encodeURIComponent(user.user)}" target="_self">${user.user}</a></td>
                     <td>${user.trades}</td>
                 `;
