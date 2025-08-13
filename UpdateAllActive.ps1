@@ -1,5 +1,5 @@
 import-module simplysql
-. ./awsHelper.ps1
+. ./awshelper.ps1
 $processRedditupdates = $false
 
 
@@ -34,7 +34,7 @@ foreach ($currentConfirmingMessage in $filterMessages){
         continue;
     }
     
-    $confirmingMessagesReplies = python3 ./Get-Replies.py --message-ids $currentConfirmingMessageId --stdout --json | convertfrom-json
+    $confirmingMessagesReplies = python3 ./get-replies.py --message-ids $currentConfirmingMessageId --stdout --json | convertfrom-json
     $TopLevelMessageReplies    = python3 ./get-replies.py --message-ids $currentParentMessageid --stdout --json | convertfrom-json
 
     if($confirmingMessagesReplies -match "added"){
@@ -58,9 +58,9 @@ foreach ($currentConfirmingMessage in $filterMessages){
     $threads | %{
         $currentThread = $_;
         write-warning "Downloading current flair for $parentUsername on $($currentThread.Subreddit)"
-        $currentParentUserFlairOnSubreddit     = Parse-FlairText $(python3 ./Get-userFlairBySubreddit.py $currentThread.subreddit $parentUserName | convertfrom-json).$parentUsername
+        $currentParentUserFlairOnSubreddit     = Parse-FlairText $(python3 ./get-userflairbysubreddit.py $currentThread.subreddit $parentUserName | convertfrom-json).$parentUsername
         write-warning "Downloading current flair for $confirmingUserName on $($currentThread.Subreddit)"
-        $currentConfirmingUserFlairOnSubreddit = Parse-FlairText $(python3 ./Get-userflairbysubreddit.py $currentThread.subreddit $confirmingUserName | convertfrom-json).$confirmingUserName
+        $currentConfirmingUserFlairOnSubreddit = Parse-FlairText $(python3 ./get-userflairbysubreddit.py $currentThread.subreddit $confirmingUserName | convertfrom-json).$confirmingUserName
         $tradeFlaircompare.$parentUserName.add($currentThread.subreddit,$currentParentUserFlairOnSubreddit)
         #$tradeFlaircompare.$parentUserName.add($($currentThread.subreddit),$currentParentUserFlairOnSubreddit.Emojis)
         $tradeFlairCompare.$confirmingUserName.add($currentThread.subreddit,$currentConfirmingUserFlairOnSubreddit)
@@ -99,5 +99,5 @@ foreach ($currentConfirmingMessage in $filterMessages){
         }
     }
     write-warning "Writing Added! to $currentConfirmingMessageId"
-    python3 ./New-redditMessage.py $currentConfirmingMessageId "Added!"
+    python3 ./new-redditMessage.py $currentConfirmingMessageId "Added!"
 }

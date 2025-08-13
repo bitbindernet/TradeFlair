@@ -1,6 +1,6 @@
 import-module simplysql;
 
-. ./awsHelper.ps1 -prod   
+. ./awshelper.ps1 -prod   
 
 $epoch3days = [int][double]::Parse(
      ((Get-Date).AddDays(-7).ToUniversalTime() - [datetime]'1970-01-01').TotalSeconds
@@ -16,7 +16,7 @@ $threads | %{
      #$ENV:RECOUNT_TRADES     =
      $ENV:TRADE_THREAD       = $_.url
 
-     python3 ./Get-MessagesSince.py --out messages.json --since $epoch3Days --more-limit 1000
+     python3 ./get-messagessince.py --out messages.json --since $epoch3Days --more-limit 1000
      . ./sync-messages.ps1
 
 }

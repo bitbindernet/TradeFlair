@@ -5,7 +5,7 @@ with optional limits on comment expansion and age.
 
 •  --more-limit / MORE_LIMIT    : throttle replace_more()
 •  --since      / START_TIMESTAMP : skip comments older than a given epoch
-•  Progress reporting + 429 back‑off
+•  Progress reporting + 429 back-off
 """
 
 import argparse
@@ -154,7 +154,7 @@ def main():
         fetch_with_retry(submission.comments.replace_more, limit=args.more_limit)
         print(
             f"replace_more done; walking {len(submission.comments):,} "
-            "top‑level comments.",
+            "top-level comments.",
             file=sys.stderr,
         )
 

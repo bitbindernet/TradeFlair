@@ -3,7 +3,7 @@ import-module simplysql
 import-module Pode
 
 Start-PodeServer {
-    . ./awsHelper.ps1
+    . ./awshelper.ps1
 
     Set-PodeSecurityAccessControl -Origin '*'
 

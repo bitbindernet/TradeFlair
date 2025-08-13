@@ -3,7 +3,7 @@ param(
     [string]$UserName
 )
 
-. .\awsHelper.ps1
+. .\awshelper.ps1
 $ss = ConvertTo-SecureString $ENV:MYSQL_PASSWORD -AsPlainText -Force
 Open-mySqlConnection -ConnectionName redditbot -Server $ENV:MYSQL_SERVER -Port $ENV:MYSQL_SERVER_PORT -Database redditbot -credential $(New-Object -TypeName 'System.Management.Automation.PsCredential' -ArgumentList $ENV:MYSQL_USER,$ss)
 
@@ -18,7 +18,7 @@ if ($localUserFlair -eq $null) {
 $usersFlairOnThreads = @{}
 $usersFlairOnThreads["local"] = @{"Trades"=$localUserFlair.trade_count}
 foreach ($currentThread in $threads) {
-    $threadFlair = Parse-FlairText $(python .\Get-UserFlairBySubreddit.py $currentThread.subreddit $UserName | ConvertFrom-Json).$UserName
+    $threadFlair = Parse-FlairText $(python .\get-userflairbysubreddit.py $currentThread.subreddit $UserName | ConvertFrom-Json).$UserName
 
     try{if ($threadFlair -ne $null) {
         $usersFlairOnThreads[$currentThread.subreddit] = $threadFlair

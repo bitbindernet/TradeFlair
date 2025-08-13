@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """
-Download a Reddit trade‑thread (or any submission) into a streaming JSON
+Download a Reddit trade-thread (or any submission) into a streaming JSON
 file (messages.json by default) that your PowerShell / SimplySql pipeline
 can ingest later.
 
 Features
 ────────
-• Handles 429 Too‑Many‑Requests with exponential / Retry‑After back‑off
-• Streams JSON to disk – no giant objects in memory
-• Emits periodic progress messages so you know it’s still alive
-• Environment‑variable driven, with an optional --out flag
+• Handles 429 Too-Many-Requests with exponential / Retry-After back-off
+• Streams JSON to disk - no giant objects in memory
+• Emits periodic progress messages so you know it's still alive
+• Environment-variable driven, with an optional --out flag
 """
 
 import argparse
@@ -70,7 +70,7 @@ def backoff_sleep(exc: prawcore.TooManyRequests, attempt: int):
 
 
 def fetch_with_retry(func, *args, **kwargs):
-    """Call a PRAW method, retrying politely on rate‑limit / transient errors."""
+    """Call a PRAW method, retrying politely on rate-limit / transient errors."""
     attempt = 0
     while True:
         try:
@@ -85,7 +85,7 @@ def fetch_with_retry(func, *args, **kwargs):
 
 @contextmanager
 def reddit_client():
-    """Yield a PRAW client (auto‑retry handled elsewhere)."""
+    """Yield a PRAW client (auto-retry handled elsewhere)."""
     reddit = praw.Reddit(
         client_id=env_or_exit("REDDIT_SCRIPT_ID"),
         client_secret=env_or_exit("REDDIT_SCRIPT_SECRET"),
@@ -134,7 +134,7 @@ def main():
         fetch_with_retry(submission.comments.replace_more, limit=None)
         print(
             f"replace_more done; walking {len(submission.comments):,} "
-            "top‑level comments.",
+            "top-level comments.",
             file=sys.stderr,
         )
 
@@ -160,9 +160,9 @@ def main():
     )
 
 
-# ─────────────────────────── entry‑point ────────────────────────────────
+# ─────────────────────────── entry-point ────────────────────────────────
 if __name__ == "__main__":
-    # quick env‑var sanity check
+    # quick env-var sanity check
     missing = [v for v in REQUIRED_ENV_VARS if not os.getenv(v)]
     if missing:
         print("Cannot start; missing env vars: " + ", ".join(missing),
