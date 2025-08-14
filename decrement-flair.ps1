@@ -10,7 +10,7 @@ Open-mySqlConnection -ConnectionName redditbot -Server $ENV:MYSQL_SERVER -Port $
 $threads = Invoke-SqlQuery -Query "select * from tradethreads where active = 1" -ConnectionName redditbot
 
 $localUserFlair = Invoke-SqlQuery -query "select * from flair join users on flair.userid = users.id where users.redditId = @redditId" -Parameters @{redditId = $UserName} -ConnectionName redditbot
-if ($localUserFlair -eq $null) {
+if ($null -eq $localUserFlair) {
     Write-Error "No flair found for user $UserName"
     exit 1
 }   
@@ -20,7 +20,7 @@ $usersFlairOnThreads["local"] = @{"Trades"=$localUserFlair.trade_count}
 foreach ($currentThread in $threads) {
     $threadFlair = Parse-FlairText $(python .\get-userflairbysubreddit.py $currentThread.subreddit $UserName | ConvertFrom-Json).$UserName
 
-    try{if ($threadFlair -ne $null) {
+    try{if ($null -ne $threadFlair) {
         $usersFlairOnThreads[$currentThread.subreddit] = $threadFlair
     } else {
         $usersFlairOnThreads[$currentThread.subreddit] = 0
