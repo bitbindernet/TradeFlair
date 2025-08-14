@@ -99,5 +99,5 @@ foreach ($currentConfirmingMessage in $filterMessages){
         }
     }
     write-warning "Writing Added! to $currentConfirmingMessageId"
-    python3 ./new-redditMessage.py $currentConfirmingMessageId "Added!"
+    python3 ./new-redditmessage.py $currentConfirmingMessageId "Added!"
 }
