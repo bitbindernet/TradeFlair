@@ -4,7 +4,7 @@ import sys
 import os
 
 # Validate required environment variables
-REQUIRED_ENV_VAR1 = ["REDDIT_SCRIPT_ID", "REDDIT_SCRIPT_SECRET", "REDDITUSER", "REDDITUSERPASSWORD"]
+REQUIRED_ENV_VARS = ["REDDIT_SCRIPT_ID", "REDDIT_SCRIPT_SECRET", "REDDITUSER", "REDDITUSERPASSWORD"]
 if not all(os.getenv(var) for var in REQUIRED_ENV_VARS):
     print("Cannot start, one or more missing environment variables:", ", ".join(REQUIRED_ENV_VARS))
     sys.exit(1)
