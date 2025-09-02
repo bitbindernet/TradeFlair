@@ -80,7 +80,8 @@ foreach ($currentConfirmingMessage in $filterMessages){
             {
                 "local"{
                     write-warning "updating $username local flair to $highestcurrentFlair"
-                    invoke-sqlupdate -Query "UPDATE flair set trade_count = @newCount, updated = NOW() where userId = @userId" -Parameters @{newCount=$highestCurrentFlair;userId=$(if($username -eq $parentUserName){$parentUserId}else{$confirmingUserId})} -ConnectionName redditbot
+                    #invoke-sqlupdate -Query "UPDATE flair set trade_count = @newCount, updated = NOW() where userId = @userId" -Parameters @{newCount=$highestCurrentFlair;userId=$(if($username -eq $parentUserName){$parentUserId}else{$confirmingUserId})} -ConnectionName redditbot
+                    invoke-sqlupdate -query "INSERT INTO flair (userId,trade_count,updated) VALUES (@userId, @newCount, NOW()) ON DUPLICATE KEY UPDATE trade_count = VALUES(trade_count), updated = NOW()" -Parameters @{newCount=$highestCurrentFlair;userId=$(if($username -eq $parentUserName){$parentUserId}else{$confirmingUserId})} -ConnectionName redditbot
                 }
                 default{
                     if($tradeFlairCompare.$username.$toUpdate.Emojis){
