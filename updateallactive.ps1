@@ -7,7 +7,7 @@ Open-mySqlConnection -ConnectionName redditbot -Server $ENV:MYSQL_SERVER -Port $
 
 $threads = Invoke-SqlQuery -Query "select * from tradethreads where active = 1" -ConnectionName redditbot
 $messages = invoke-sqlquery -query "select * from messages where tradeThreadId in (select id from tradethreads where active = 1) and created >= CURDATE() - INTERVAL 10 DAY " -ConnectionName redditbot
-$tradeFlairOverrides = Invoke-SqlQuery -Query "SELECT redditId,trade_thread_id,override_text FROM redditbot.flair_override join users on flair_override.user_id = users.id" -ConnectionName redditbot
+$tradeFlairOverrides = Invoke-SqlQuery -Query "SELECT users.redditId,trade_thread_id,tradethreads.subreddit,override_text FROM redditbot.flair_override join users on flair_override.user_id = users.id join tradethreads on flair_override.trade_thread_id = tradethreads.id" -ConnectionName redditbot
 $messagesToProcess = $messages.Clone()
 $filterMessages = $messages | Where-Object {$($_.body -match "confirm" -or $_.body -match "received")-and $_.redditParentId} 
 foreach ($currentConfirmingMessage in $filterMessages){
@@ -86,7 +86,7 @@ foreach ($currentConfirmingMessage in $filterMessages){
                 default{
 
                     if($tradeFlairOverrides | where-object {$_.redditId -eq $username}){
-                        $overrideText = ($tradeFlairOverrides | where-object {$_.redditId -eq $username} | where-object {$_.trade_thread_id -eq $toUpdate} | select-object -ExpandProperty override_text)
+                        $overrideText = ($tradeFlairOverrides | where-object {$_.redditId -eq $username} | where-object {$_.subreddit -eq $toUpdate} | select-object -ExpandProperty override_text)
                         write-warning "User $username has an override of $overrideText"
                         $highestCurrentFlair = $overrideText
                     }
