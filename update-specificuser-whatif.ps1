@@ -1,5 +1,5 @@
 param(
-    $redditUser = 'ronniman'
+    $redditUser
 );
 
 import-module simplysql
