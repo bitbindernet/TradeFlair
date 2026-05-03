@@ -2,7 +2,7 @@
 set -euo pipefail
 
 PROJECT_DIR="/home/redditbot/Projects/TradeFlair"
-SERVICE_DIR="$PROJECT_DIR/service"
+SERVICE_DIR="$PROJECT_DIR/services"
 
 sudo ln -sf "$SERVICE_DIR/tradeflair-api.service" \
   /etc/systemd/system/tradeflair-api.service
