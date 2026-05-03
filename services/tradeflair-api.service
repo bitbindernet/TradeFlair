@@ -1,0 +1,19 @@
+[Unit]
+Description=TradeFlair API Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=redditbot
+Group=redditbot
+WorkingDirectory=/home/redditbot/Projects/TradeFlair
+ExecStart=/usr/bin/pwsh -NoLogo -NoProfile -File /home/redditbot/Projects/TradeFlair/service/start-api.ps1
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=tradeflair-api
+
+[Install]
+WantedBy=multi-user.target
