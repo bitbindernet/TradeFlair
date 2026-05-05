@@ -101,7 +101,7 @@ foreach ($currentConfirmingMessage in $filterMessages){
                         $NewFlair = "Trades: $($highestCurrentFlair)"
                     }
                     write-warning "Setting $toUpdate --> $username --> $Newflair"
-                    python3 ./set-userflair.py $toUpdate $username $Newflair
+                    python3 ./set-userflair.py -- $toUpdate $username $Newflair
                 }
             }
         }
