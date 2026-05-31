@@ -189,3 +189,4 @@ Start-PodeServer {
         close-sqlconnection -ConnectionName $using:connectionName
     }
  
+}
