@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unconfirmed Trades</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        th.sortable {
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+        }
+        th.sortable::after {
+            content: " ↕";
+            font-size: 0.8em;
+            color: #6c757d;
+        }
+        th.sortable.sort-asc::after { content: " ▲"; }
+        th.sortable.sort-desc::after { content: " ▼"; }
+        .message-cell {
+            min-width: 320px;
+            white-space: pre-wrap;
+        }
+        .status-text {
+            min-height: 1.5rem;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container my-4">
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <button onclick="window.location.href='index.html'" class="btn btn-warning mb-2 mb-md-0">🏆 Leaderboard</button>
+            <h1 class="h3 text-primary text-center flex-grow-1 mb-0">Reddit TradeFlair Unconfirmed Trades</h1>
+            <button onclick="window.location.reload()" class="btn btn-outline-primary mb-2 mb-md-0">Refresh</button>
+        </div>
+
+        <p class="text-muted">
+            These are trade-style comments that appear to mention another Reddit user, but have not yet been matched to a confirmation reply.
+        </p>
+
+        <input type="text" id="search" class="form-control mb-3" placeholder="Search by username, tagged user, message text, date, or id...">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap mb-2 gap-2">
+            <div id="status" class="status-text small-text">Loading unconfirmed trades...</div>
+            <div class="d-flex justify-content-center align-items-center" id="pagination">
+                <button id="prev" class="btn btn-outline-primary btn-sm me-2">Previous</button>
+                <span id="page" class="mx-2"></span>
+                <button id="next" class="btn btn-outline-primary btn-sm ms-2">Next</button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th class="sortable" data-sort="created">Date</th>
+                        <th class="sortable" data-sort="commentingUser">Commenting User</th>
+                        <th class="sortable" data-sort="taggedUser">Tagged User</th>
+                        <th class="sortable" data-sort="messageBody">Message</th>
+                        <th class="sortable" data-sort="messageId">Message ID</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody id="unconfirmedtrades"></tbody>
+            </table>
+        </div>
+
+        <p class="small-text text-center mt-4">Created with ❤️ by <a href="https://www.reddit.com/user/Bitbindergaming" target="_blank">u/Bitbindergaming</a></p>
+        <p class="small-text text-center">Tips always appreciated: <strong>BTC: 1LYzb4XCjoBJwc6iw9aTVfBNHizEd8aatD</strong></p>
+    </div>
+
+    <script>
+        const PAGE_SIZE = 20;
+        const API_URL = 'https://api.tradeflair.bitbinder.net/api/unconfirmedtrades';
+
+        let allTrades = [];
+        let filteredTrades = [];
+        let currentPage = 1;
+        let sortColumn = 'created';
+        let sortDirection = 'desc';
+
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function normalizeRedditUsername(value) {
+            return String(value ?? '')
+                .trim()
+                .replace(/^u\//i, '')
+                .replace(/^\/u\//i, '');
+        }
+
+        function extractTaggedUsers(text) {
+            const matches = String(text ?? '').match(/(?:^|\s)u\/([A-Za-z0-9_-]+)/gi) || [];
+            return [...new Set(matches.map(match => normalizeRedditUsername(match.trim())))];
+        }
+
+        function firstValue(item, keys) {
+            for (const key of keys) {
+                if (item && item[key] !== undefined && item[key] !== null && item[key] !== '') {
+                    return item[key];
+                }
+            }
+            return '';
+        }
+
+        function normalizeTrade(item) {
+            const messageBody = firstValue(item, ['messageBody', 'body', 'trade', 'comment', 'text', 'MessageBody', 'Body']);
+            const extractedTaggedUsers = extractTaggedUsers(messageBody);
+            const messageId = firstValue(item, ['messageId', 'redditId', 'id', 'MessageId', 'RedditId', 'ID']);
+            const commentingUser = normalizeRedditUsername(firstValue(item, [
+                'commentingUser', 'userRedditId', 'UserRedditId', 'username', 'user', 'author', 'CommentingUser'
+            ]));
+            const taggedUser = normalizeRedditUsername(firstValue(item, [
+                'taggedUser', 'taggedUsername', 'TaggedUser', 'TaggedUsername'
+            ]) || extractedTaggedUsers.join(', '));
+            const link = firstValue(item, ['link', 'permalink', 'url', 'redditUrl', 'Link', 'Permalink', 'Url']);
+
+            return {
+                created: firstValue(item, ['created', 'createdAt', 'date', 'Created', 'CreatedAt']),
+                commentingUser,
+                taggedUser,
+                messageBody,
+                messageId,
+                link
+            };
+        }
+
+        function getComparableValue(trade, column) {
+            if (column === 'created') {
+                const time = Date.parse(trade.created);
+                return Number.isNaN(time) ? 0 : time;
+            }
+            return String(trade[column] ?? '').toLowerCase();
+        }
+
+        function sortTrades() {
+            filteredTrades.sort((a, b) => {
+                const aValue = getComparableValue(a, sortColumn);
+                const bValue = getComparableValue(b, sortColumn);
+
+                if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
+                if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
+                return 0;
+            });
+        }
+
+        function updateSortHeaders() {
+            document.querySelectorAll('th.sortable').forEach(th => {
+                th.classList.remove('sort-asc', 'sort-desc');
+                if (th.dataset.sort === sortColumn) {
+                    th.classList.add(sortDirection === 'asc' ? 'sort-asc' : 'sort-desc');
+                }
+            });
+        }
+
+        function redditUserLink(username) {
+            const clean = normalizeRedditUsername(username);
+            if (!clean) return '';
+            return `<a href="https://www.reddit.com/user/${encodeURIComponent(clean)}" target="_blank">${escapeHtml(clean)}</a>`;
+        }
+
+        function messageLink(trade) {
+            if (trade.link) {
+                return `<a href="${escapeHtml(trade.link)}" target="_blank">View</a>`;
+            }
+            return '';
+        }
+
+        function renderTable() {
+            sortTrades();
+            updateSortHeaders();
+
+            const tbody = document.getElementById('unconfirmedtrades');
+            tbody.innerHTML = '';
+
+            const start = (currentPage - 1) * PAGE_SIZE;
+            const end = start + PAGE_SIZE;
+            const pageTrades = filteredTrades.slice(start, end);
+            const fragment = document.createDocumentFragment();
+
+            pageTrades.forEach(trade => {
+                const tr = document.createElement('tr');
+                const created = trade.created ? new Date(trade.created).toLocaleString() : '';
+                const messageBody = escapeHtml(trade.messageBody).replace(/\n/g, '<br>');
+
+                tr.innerHTML = `
+                    <td>${escapeHtml(created)}</td>
+                    <td>${redditUserLink(trade.commentingUser)}</td>
+                    <td>${trade.taggedUser.split(',').map(user => redditUserLink(user)).filter(Boolean).join('<br>')}</td>
+                    <td class="message-cell">${messageBody}</td>
+                    <td>${escapeHtml(trade.messageId)}</td>
+                    <td>${messageLink(trade)}</td>
+                `;
+                fragment.appendChild(tr);
+            });
+
+            tbody.appendChild(fragment);
+
+            const totalPages = Math.ceil(filteredTrades.length / PAGE_SIZE) || 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            document.getElementById('page').textContent = `Page ${currentPage} of ${totalPages}`;
+            document.getElementById('prev').disabled = currentPage === 1;
+            document.getElementById('next').disabled = currentPage === totalPages;
+            document.getElementById('status').textContent = `${filteredTrades.length} of ${allTrades.length} unconfirmed trades shown`;
+        }
+
+        function debounce(fn, delay = 300) {
+            let timeout;
+            return function(...args) {
+                const context = this;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => fn.apply(context, args), delay);
+            };
+        }
+
+        function applySearch(query) {
+            const normalizedQuery = query.toLowerCase();
+            filteredTrades = allTrades.filter(trade =>
+                Object.values(trade).some(value => String(value ?? '').toLowerCase().includes(normalizedQuery))
+            );
+            currentPage = 1;
+            renderTable();
+        }
+
+        async function init() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error(`Failed to fetch unconfirmed trades: ${response.status} ${response.statusText}`);
+
+                const data = await response.json();
+                const rows = Array.isArray(data)
+                    ? data
+                    : Array.isArray(data.trades)
+                        ? data.trades
+                        : Array.isArray(data.data)
+                            ? data.data
+                            : Object.values(data);
+
+                allTrades = rows.map(normalizeTrade);
+                filteredTrades = [...allTrades];
+                renderTable();
+            } catch (e) {
+                document.getElementById('status').innerHTML = `<span style="color:red;">Could not load unconfirmed trades. ${escapeHtml(e.message)}</span>`;
+                document.getElementById('page').textContent = 'Page 1 of 1';
+                document.getElementById('prev').disabled = true;
+                document.getElementById('next').disabled = true;
+            }
+        }
+
+        document.getElementById('search').addEventListener('input', debounce(function() {
+            applySearch(this.value);
+        }));
+
+        document.querySelectorAll('th.sortable').forEach(th => {
+            th.addEventListener('click', () => {
+                const selectedColumn = th.dataset.sort;
+                if (sortColumn === selectedColumn) {
+                    sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+                } else {
+                    sortColumn = selectedColumn;
+                    sortDirection = selectedColumn === 'created' ? 'desc' : 'asc';
+                }
+                currentPage = 1;
+                renderTable();
+            });
+        });
+
+        document.getElementById('prev').addEventListener('click', () => {
+            if (currentPage > 1) { currentPage--; renderTable(); }
+        });
+
+        document.getElementById('next').addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredTrades.length / PAGE_SIZE) || 1;
+            if (currentPage < totalPages) { currentPage++; renderTable(); }
+        });
+
+        init();
+    </script>
+</body>
+</html>
