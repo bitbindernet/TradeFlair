@@ -123,7 +123,7 @@
             const taggedUser = normalizeRedditUsername(firstValue(item, [
                 'taggedUser', 'taggedUsername', 'TaggedUser', 'TaggedUsername'
             ]) || extractedTaggedUsers.join(', '));
-            const link = firstValue(item, ['link', 'permalink', 'url', 'redditUrl', 'Link', 'Permalink', 'Url']);
+            const link = firstValue(item, ['messageLink', 'link', 'permalink', 'url', 'redditUrl', 'MessageLink', 'Link', 'Permalink', 'Url']);
 
             return {
                 created: firstValue(item, ['created', 'createdAt', 'date', 'Created', 'CreatedAt']),

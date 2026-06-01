@@ -189,4 +189,13 @@ Start-PodeServer {
         close-sqlconnection -ConnectionName $using:connectionName
     }
  
+    Add-Poderoute -method Get -path '/api/unconfirmedtrades' -scriptblock {
+        Open-mySqlConnection -ConnectionName $using:connectionName -Server $ENV:MYSQL_SERVER -Port $ENV:MYSQL_SERVER_PORT -Database redditbot -credential $(New-Object -TypeName 'System.Management.Automation.PsCredential' -ArgumentList $ENV:MYSQL_USER,$using:ss)
+        Set-SqlConnection -ConnectionName $using:connectionName
+        $dt = Invoke-SqlQuery -Query $using:unconfirmedMessagesQuery -ConnectionName $using:connectionName
+        $jsresponse = $dt | Select-Object * -ExcludeProperty ItemArray, Table, RowError, RowState, HasErrors | ConvertTo-Json
+        write-podejsonresponse -value $jsresponse
+        close-sqlconnection -ConnectionName $using:connectionName
+    }
+
 }
