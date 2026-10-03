@@ -1,0 +1,31 @@
+name: Devvit CI
+
+on:
+  pull_request:
+    paths:
+      - 'devvit/**'
+      - '.github/workflows/devvit-*.yml'
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - 'devvit/**'
+      - '.github/workflows/devvit-*.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: devvit
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: devvit/package-lock.json
+      - run: npm install
+      - run: npm run test:types
+      - run: npm run test:unit
+      - run: npm run build
