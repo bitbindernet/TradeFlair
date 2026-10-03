@@ -23,8 +23,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-          cache: npm
-          cache-dependency-path: devvit/package-lock.json
       - run: npm install
       - run: npm run test:types
       - run: npm run test:unit
