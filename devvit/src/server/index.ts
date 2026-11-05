@@ -7,6 +7,7 @@ import type {
   TriggerResponse,
 } from '@devvit/web/shared';
 import { isTrackedTradeThread } from './config';
+import { normalizeCommentCreate } from './ingest';
 import {
   enqueueComment,
   getPendingCount,
@@ -23,34 +24,17 @@ function toIso(value: unknown): string | undefined {
 
 app.post('/internal/triggers/on-comment-create', async (c) => {
   const input = await c.req.json<OnCommentCreateRequest>();
-  const comment = input.comment;
-  const subreddit = input.subreddit;
+  const result = normalizeCommentCreate(input);
 
-  if (!comment?.id || !comment.postId) {
+  if (result.status === 'ignored') {
+    console.log(`[TradeFlair] ignored CommentCreate: ${result.reason}`);
     return c.json<TriggerResponse>({ status: 'ok' });
   }
 
-  if (!isTrackedTradeThread(subreddit?.name, comment.postId)) {
-    return c.json<TriggerResponse>({ status: 'ok' });
-  }
-
-  await enqueueComment({
-    eventType: 'CommentCreate',
-    commentId: comment.id,
-    postId: comment.postId,
-    parentId: comment.parentId,
-    subredditId: subreddit?.id ?? comment.subredditId,
-    subredditName: subreddit?.name,
-    authorId: input.author?.id,
-    authorName: input.author?.username,
-    body: comment.body,
-    permalink: comment.permalink,
-    createdAt: toIso(comment.createdAt),
-    observedAt: new Date().toISOString(),
-  });
+  await enqueueComment(result.record);
 
   console.log(
-    `[TradeFlair] queued ${comment.id} from r/${subreddit?.name}; pending=${await getPendingCount()}`
+    `[TradeFlair] queued ${result.record.commentId} from r/${result.record.subredditName}; pending=${await getPendingCount()}`
   );
 
   return c.json<TriggerResponse>({ status: 'ok' });
