@@ -1,0 +1,20 @@
+{
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+  "name": "tradeflair",
+  "server": {
+    "dir": "dist/server",
+    "entry": "index.cjs"
+  },
+  "triggers": {
+    "onCommentCreate": "/internal/triggers/on-comment-create",
+    "onCommentDelete": "/internal/triggers/on-comment-delete"
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch"
+  },
+  "permissions": {
+    "reddit": true,
+    "redis": true
+  }
+}
